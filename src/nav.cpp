@@ -11,7 +11,7 @@
 #include <tf/transform_broadcaster.h>
 // the least amount the turtlebot can move, otherwise odometry breaks;
 // serves as our acceptable error
-const double ANGLE_ERR = 3;
+const double ANGLE_ERR = 3.5;
 // how much we need in velocity commands to move INCREMENT_AMT forward
 const double MOVEMENT_MULTIPLE = 1.8; 
 // how much we move forward/backward each increment
@@ -21,7 +21,7 @@ const double LEFT_90 = 2.54629;
 // how much angular velocity we need to move right 90 degrees
 const double RIGHT_90 = -2.56;
 
-const double ROTATION_VELOCITY = 0.2;
+const double ROTATION_VELOCITY = .8;
 
 const double FORWARD_VELOCITY = 0.2;
 
@@ -111,8 +111,9 @@ bool RoboState::goForward(Direction currentDirection)
 
   if (currentDirection == X){
     double xOffset = getX() - getXodom();
-      
+    
     if(xOffset <= -getErr() || xOffset >= getErr()){
+      ROS_INFO("Moving forward because we are off by %f.", xOffset);
       this->velocityCommand.linear.x = FORWARD_VELOCITY;
     }
     else{

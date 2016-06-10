@@ -34,7 +34,7 @@ int main(int argc, char **argv)
     {
      
       robot.incrementInternalCount();
-      if(robot.getInternalCount() % 5 == 0){
+      //      if(robot.getInternalCount() % 5 == 0){
 	switch (robot.getCurrentState()){
 
 	case NEUTRAL:
@@ -106,7 +106,7 @@ int main(int argc, char **argv)
 	  ROS_INFO("Something is broken. We should not reach this point.");
 	}
 
-      }
+	//      }
 
       loopRate.sleep();
       ros::spinOnce();
