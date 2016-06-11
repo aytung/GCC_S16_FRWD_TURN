@@ -4,7 +4,6 @@
 #include "ros/ros.h"
 #include <turtlebot/mymsg.h>
 #include <iostream>
-//#include "node_example/listener.h"
 #include "geometry_msgs/Twist.h"
 #include "create_node/TurtlebotSensorState.h"
 #include <string>
@@ -13,9 +12,7 @@
 #include <cmath>
 #include <nav_msgs/Odometry.h>
 
-// change this to 0 when you want to use goRobotGo
-// change this to 1 when you want to use nav_node.cpp
-#define USE_MAIN 1
+
  /* This is a visualization of what the x and y coordinates represent on 
    relative to the direction that the turtlebot is facing.
 |         X+        . (destination)
@@ -27,7 +24,7 @@
 |      |___|    
 |        ____________ Y-
   */
-#define DEBUG 0
+
 using namespace std;
 
 enum State{ NEUTRAL, TURN_NEG_X, MOVE_FORWARD_X,FACE_DESTINATION, MOVE_FORWARD_Y, FACE_ORIGINAL };
@@ -36,31 +33,22 @@ enum Direction{X, Y};
 class RoboState
   {
   public:
-    // test function
-    void testForward();
-    void goRobotGo();
+
     // constructor
     RoboState(ros::NodeHandle rosNode);
     double getYaw();
-    
-    void faceOriginal();
-    void rotate_180();
+
+    // These are public so that we can use main for clarity
     void setY(double y);
     double getY();
     State getCurrentState();
     void incrementInternalCount();
     bool faceDestination();
-    bool currentCountOdd();
     int getInternalCount();
     bool goForward(Direction currentDirection);
     void setYawGoal(double newYawGoal);
     void setCurrentState(State newState);
   private:
-
-    void rotateLeft();
-    void rotateRight();
-    void rotateLeft_90();
-    void rotateRight_90();
 
     // the ros node being used by RoboState
     ros::NodeHandle node;    
@@ -84,12 +72,8 @@ class RoboState
     void determineYawGoal();
 
     // private variables
-    double xTarget;
-    double yTarget;
     double xOdom;
     double yOdom;
-    double xOdomOld;
-    double yOdomOld;
     double xCoord;
     double yCoord;
     double acceptErr;
@@ -111,10 +95,8 @@ class RoboState
     double getYodomOld();
     void setXodomOld(double xOdomCurrent);
     void setYodomOld(double yOdomCurrent);
-
     double getX();
     void setX(double x);
-
 
   };
 
